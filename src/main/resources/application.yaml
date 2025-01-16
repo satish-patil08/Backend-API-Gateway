@@ -1,0 +1,8 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: notifications-service
+          uri: lb://notifications
+          predicates:
+            - Path=/notifications/error-reporting/**
