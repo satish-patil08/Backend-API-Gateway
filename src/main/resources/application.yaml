@@ -1,33 +1,29 @@
-# (Optional) Enable dynamic route creation from service discovery
 spring:
   cloud:
     gateway:
+      # Enable discovery locator (this will automatically create routes for all services if needed)
       discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
 
-      # Manually defined routes for custom behavior
+      # Explicit route definitions for each microservice:
       routes:
-        # Route for Eureka Server (usually static; Eureka itself might not register via discovery)
-        - id: eureka-route
-          uri: http://localhost:7000/eureka
-          predicates:
-            - Path=/eureka/**
-
-
-        # Route for Clients Service (using service discovery load balancing)
-        - id: clients-route
-          uri: lb://clients
-          predicates:
-            - Path=/clients/**
-
-
-        # Route for Users Service
+        # Route for the Users service
         - id: users-route
           uri: lb://users
           predicates:
             - Path=/users/**
 
 
-        # Route for Notifications Service
+        # Route for the Clients service
+        - id: clients-route
+          uri: lb://client
+          predicates:
+            - Path=/clients/**
+          # The external endpoint is /clients/** while the service name is "client"
+
+        # Route for the Notifications service
         - id: notifications-route
           uri: lb://notifications
           predicates:
