@@ -57,6 +57,12 @@
 			<artifactId>reactor-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!--   My Dependencies      -->
+		<dependency>
+			<groupId>com.microservices</groupId>
+			<artifactId>shared-utils</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>

@@ -1,23 +1,24 @@
 spring:
   cloud:
     gateway:
-
-      # Explicit route definitions for each microservice:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:3000"
+            allowedMethods: "GET,POST,PUT,DELETE,OPTIONS"
+            allowedHeaders: "*"
+            allowCredentials: true
       routes:
-
-        # Route for the Users service
         - id: users-route
           uri: lb://users
           predicates:
             - Path=/users/**
-
-        # Route for the Clients service
         - id: clients-route
           uri: lb://client
           predicates:
             - Path=/clients/**
-
-        # Route for the Notifications service
         - id: notifications-route
           uri: lb://notifications
           predicates:
