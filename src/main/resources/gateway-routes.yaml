@@ -1,27 +1,21 @@
 spring:
   cloud:
     gateway:
-      # Enable discovery locator (this will automatically create routes for all services if needed)
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
 
       # Explicit route definitions for each microservice:
       routes:
+
         # Route for the Users service
         - id: users-route
           uri: lb://users
           predicates:
             - Path=/users/**
 
-
         # Route for the Clients service
         - id: clients-route
           uri: lb://client
           predicates:
             - Path=/clients/**
-          # The external endpoint is /clients/** while the service name is "client"
 
         # Route for the Notifications service
         - id: notifications-route
