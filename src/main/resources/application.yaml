@@ -1,8 +1,34 @@
+# (Optional) Enable dynamic route creation from service discovery
 spring:
   cloud:
     gateway:
+      discovery:
+
+      # Manually defined routes for custom behavior
       routes:
-        - id: notifications-service
+        # Route for Eureka Server (usually static; Eureka itself might not register via discovery)
+        - id: eureka-route
+          uri: http://localhost:7000/eureka
+          predicates:
+            - Path=/eureka/**
+
+
+        # Route for Clients Service (using service discovery load balancing)
+        - id: clients-route
+          uri: lb://clients
+          predicates:
+            - Path=/clients/**
+
+
+        # Route for Users Service
+        - id: users-route
+          uri: lb://users
+          predicates:
+            - Path=/users/**
+
+
+        # Route for Notifications Service
+        - id: notifications-route
           uri: lb://notifications
           predicates:
-            - Path=/notifications/error-reporting/**
+            - Path=/notifications/**
