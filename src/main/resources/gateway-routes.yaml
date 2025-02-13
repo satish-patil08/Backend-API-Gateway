@@ -14,7 +14,7 @@ spring:
         - id: users-route
           uri: lb://users
           predicates:
-            - Path=/users/**
+            - Path=/users/*
         - id: clients-route
           uri: lb://client
           predicates:
