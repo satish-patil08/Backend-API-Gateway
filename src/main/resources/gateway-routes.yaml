@@ -11,14 +11,19 @@ spring:
             allowedHeaders: "*"
             allowCredentials: true
       routes:
+
         - id: users-route
           uri: lb://users
           predicates:
             - Path=/users/*
+            - Path=/users/login-sessions/*
+
+
         - id: clients-route
           uri: lb://client
           predicates:
             - Path=/clients/**
+
         - id: notifications-route
           uri: lb://notifications
           predicates:
