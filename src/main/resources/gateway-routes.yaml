@@ -12,18 +12,19 @@ spring:
             allowCredentials: true
       routes:
 
+        # Routes for Users
         - id: users-route
           uri: lb://users
           predicates:
-            - Path=/users/*
-            - Path=/users/login-sessions/*
+            - Path=/users/**
 
-
+        # Routes for Clients
         - id: clients-route
           uri: lb://client
           predicates:
             - Path=/clients/**
 
+        # Routes for Notifications
         - id: notifications-route
           uri: lb://notifications
           predicates:
